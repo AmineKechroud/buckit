@@ -30,7 +30,7 @@ class AuthController extends Controller
         //FIND THE USER
         $user_record = User::query()->where('username', '=', $request->username)->first();
         if ($user_record == null) {
-            return response()->json(['error' => true, 'message' => 'Username Does Not Exist'], 401);    
+            return response()->json(['error' => true, 'errors' => ['Username Does Not Exist']], 401);    
         }
         if (Auth::attempt(['username' => $request->username, 'password' => $request->password])) {
             $token = JWTAuth::fromUser($user_record);
@@ -39,6 +39,6 @@ class AuthController extends Controller
             return response()->json(['error' => true, 'message' => 'Logged In Successfully!',
         'user_info' => $user_record, 'token' => $token_string], 200);
         }
-        return response()->json(['error' => true, 'message' => 'Wrong Username/Password Combo :('], 401);    
+        return response()->json(['error' => true, 'errors' => ['Wrong Username/Password Combo :(']], 401);    
     }
 }
