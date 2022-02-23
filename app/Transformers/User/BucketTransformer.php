@@ -3,6 +3,7 @@
 namespace App\Transformers\User;
 
 use App\Models\Bucket;
+use App\Transformers\CategoryTransformer;
 use League\Fractal\TransformerAbstract;
 
 class BucketTransformer extends TransformerAbstract
@@ -13,7 +14,7 @@ class BucketTransformer extends TransformerAbstract
      * @var array
      */
     protected $defaultIncludes = [
-        'items'
+        'items', 'categories'
     ];
     
     /**
@@ -49,6 +50,17 @@ class BucketTransformer extends TransformerAbstract
         {
             $items = $bucket->bucketItems()->where('status','active')->get();
             return $this->collection($items, new BucketItemTransformer()); 
+        }else{
+            return null;
+        }
+    }
+
+    public function includeCategories(Bucket $bucket)
+    {
+        if($bucket->categories())
+        {
+            $items = $bucket->categories()->where('status','active')->get();
+            return $this->collection($items, new CategoryTransformer()); 
         }else{
             return null;
         }
