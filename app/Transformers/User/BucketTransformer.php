@@ -59,8 +59,8 @@ class BucketTransformer extends TransformerAbstract
     {
         if($bucket->categories())
         {
-            $items = $bucket->categories()->where('status','active')->get();
-            return $this->collection($items, new CategoryTransformer()); 
+            $items = $bucket->categories()->where('status','active')->first();
+            return $this->item($items, new CategoryTransformer()); 
         }else{
             return null;
         }
