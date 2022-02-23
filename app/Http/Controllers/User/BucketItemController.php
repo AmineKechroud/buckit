@@ -52,9 +52,13 @@ class BucketItemController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $bucket_id)
     {
-        //
+        $user = TokenMgmt::getUserObject($request);
+        $bucket = Bucket::query()->find($bucket_id);
+        $items = $bucket->bucketItems()->where('status', 'active')->get();
+        return response()->json(['error' => true, 
+        'data' => $items], 200);
     }
 
     /**
