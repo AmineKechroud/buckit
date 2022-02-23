@@ -57,7 +57,7 @@ class BucketTransformer extends TransformerAbstract
 
     public function includeCategories(Bucket $bucket)
     {
-        if($bucket->categories())
+        if($bucket->categories)
         {
             $items = $bucket->categories()->where('status','active')->first();
             return $this->item($items, new CategoryTransformer()); 
