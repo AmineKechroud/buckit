@@ -28,8 +28,10 @@ class BucketRequest extends FormRequest
             'description' => 'nullable|string',
             'due_date' => 'nullable',
             'image' => 'nullable|string',
-            'categories' => 'required|array',
-            'categories.*' => 'numeric'
+            // 'categories' => 'required|array',
+            // 'categories.*' => 'numeric'
+            'category' => 'required|string'
+
         ];
     }
 }

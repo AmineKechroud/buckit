@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\utilities\TokenMgmt;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\BucketRequest;
+use App\Models\Category;
 use App\Transformers\User\BucketTransformer;
 use Illuminate\Http\Request;
 use League\Fractal\Serializer\ArraySerializer;
@@ -47,7 +48,8 @@ class BucketController extends Controller
     {
         $user = TokenMgmt::getUserObject($request);
         $bucket = $user->buckets()->create($request->all());
-        $bucket->categories()->sync($request['categories']);
+        $category = Category::query()->where('name', $request['category'])->first();
+        $bucket->categories()->attach($category->id);
         return response()->json(['error' => true, 
         'message' => 'Bucket Created Successfully!', 'bucket' => $bucket], 200);    
     }
