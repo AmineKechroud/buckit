@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\BucketItemRequest;
 use App\Models\Bucket;
+use App\Models\BucketItem;
 use App\utilities\TokenMgmt;
 use Illuminate\Http\Request;
 
@@ -59,6 +60,23 @@ class BucketItemController extends Controller
         $items = $bucket->bucketItems()->where('status', 'active')->get();
         return response()->json(['error' => true, 
         'data' => $items], 200);
+    }
+
+    public function toggle(Request $request, $item_id)
+    {
+        $user = TokenMgmt::getUserObject($request);
+        $bucket = BucketItem::query()->find($item_id);
+        if($bucket->is_done == true)
+        {
+            $items = $bucket->update(['is_done' => 0]);
+            return response()->json(['error' => true, 
+        'message' => 'Item marked not done'], 200);
+        }else{
+            $items = $bucket->update(['is_done' => 1]);
+            return response()->json(['error' => true, 
+        'message' => 'Item marked done'], 200);
+        }
+        
     }
 
     /**
