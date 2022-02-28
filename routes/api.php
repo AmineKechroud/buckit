@@ -33,6 +33,6 @@ Route::prefix('v1')->group(function () {
     Route::prefix('user')->group(function () {
         Route::resource('buckets',BucketController::class);
         Route::resource('bucket-items',BucketItemController::class);
-        Route::resource('bucket-items/{item_id}/toggle',[BucketItemController::class, 'toggle']);
+        Route::put('bucket-items/{item_id}/toggle',[BucketItemController::class, 'toggle']);
     });
 });
