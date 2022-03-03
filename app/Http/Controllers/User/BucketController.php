@@ -98,7 +98,7 @@ class BucketController extends Controller
     public function destroy(Request $request, $bucket_id)
     {
         $user = TokenMgmt::getUserObject($request);
-        $bucket = Bucket::query()->find($request->bucket_id);
+        $bucket = Bucket::query()->find($bucket_id);
         $bucket->update(['status' => 'deleted']);
         return response()->json(['error' => true, 
         'message' => 'Bucket Deleted Successfully!'], 200);
