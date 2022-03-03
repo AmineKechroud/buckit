@@ -108,8 +108,12 @@ class BucketItemController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $item_id)
     {
-        //
+        $user = TokenMgmt::getUserObject($request);
+        $bucket = BucketItem::query()->find($item_id);
+        $items = $bucket->update(['status' => 'deleted']);
+            return response()->json(['error' => true, 
+        'message' => 'Item deleted'], 200);
     }
 }
