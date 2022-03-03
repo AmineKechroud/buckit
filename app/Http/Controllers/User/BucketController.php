@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\utilities\TokenMgmt;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\BucketRequest;
+use App\Models\Bucket;
 use App\Models\Category;
 use App\Transformers\User\BucketTransformer;
 use Illuminate\Http\Request;
@@ -94,8 +95,12 @@ class BucketController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $bucket_id)
     {
-        //
+        $user = TokenMgmt::getUserObject($request);
+        $bucket = Bucket::query()->find($request->bucket_id);
+        $bucket->update(['status' => 'deleted']);
+        return response()->json(['error' => true, 
+        'message' => 'Bucket Deleted Successfully!'], 200);
     }
 }
