@@ -13,19 +13,19 @@ class CreateUserInfoTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_info', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->string('api_token', 1000)->nullable();
-            $table->string('fcm_token', 1000)->nullable();
-            $table->string('firebase_token', 1000)->nullable();
-            $table->string('facebook_uid', 1000)->nullable();
-            $table->string('google_email', 1000)->nullable();
-            $table->string('apple_email', 1000)->nullable();
-            $table->string('status', 30)->default('active');
-            $table->timestamps();
-            $table->foreign('user_id')->references('id')->on('users');
-        });
+        // Schema::create('user_info', function (Blueprint $table) {
+        //     $table->id();
+        //     $table->unsignedBigInteger('user_id');
+        //     $table->string('api_token', 1000)->nullable();
+        //     $table->string('fcm_token', 1000)->nullable();
+        //     $table->string('firebase_token', 1000)->nullable();
+        //     $table->string('facebook_uid', 1000)->nullable();
+        //     $table->string('google_email', 1000)->nullable();
+        //     $table->string('apple_email', 1000)->nullable();
+        //     $table->string('status', 30)->default('active');
+        //     $table->timestamps();
+        //     $table->foreign('user_id')->references('id')->on('users');
+        // });
     }
 
     /**
