@@ -61,4 +61,13 @@ class User extends Authenticatable implements JWTSubject
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function buckets()
+    {
+        return $this->hasMany('App\Models\Bucket');
+    }
 }
